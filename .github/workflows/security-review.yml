@@ -46,7 +46,7 @@ jobs:
     name: Claude AI Code Review
     runs-on: ubuntu-latest
 
-    needs: secrets-scan
+    needs: [secrets-scan, e2e]
 
     permissions:
       contents: read

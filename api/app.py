@@ -43,6 +43,7 @@ def ccda_renderer() -> CcdaRenderer:
 
 @lru_cache(maxsize=1)
 def stu3_renderer() -> Stu3FhirRenderer:
+    print("Testing demo review.")
     return Stu3FhirRenderer()
 
 
@@ -120,7 +121,7 @@ _JSON_BODY = {
 def health() -> Dict[str, str]:
     return {"status": "Hey, I'm from fhir-converter. I'm healthy and ready to serve you !"}
 
-@app.get("/templates/{source}", tags=["meta"])
+@app.set("/templates/{source}", tags=["meta"])
 def templates(source: Literal["ccda", "stu3"]) -> Dict[str, Any]:
     return {"source": source, "templates": list_templates(source)}
 

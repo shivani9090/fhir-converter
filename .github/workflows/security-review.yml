@@ -54,6 +54,7 @@ jobs:
       contents: read
       pull-requests: write
       issues: write
+      id-token: write
 
     steps:
       - name: Checkout repository
@@ -71,7 +72,7 @@ jobs:
             application.
 
             Use this skill.md file for pull request review:
-              .claude\skills\github-pr-review\SKILL.md
+              .claude/skills/github-pr-review/SKILL.md
 
             Review only the changes introduced in this PR.
 
@@ -91,4 +92,5 @@ jobs:
             Do not modify files, commit, push or merge.
 
           claude_args: |
-            --max-turns 5
+            --max-turns 20
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"

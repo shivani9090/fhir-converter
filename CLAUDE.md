@@ -14,3 +14,11 @@
 ## Development Commands
 <!-- - Run all tests: `pytest -v` -->
 - Run E2E: `pytest tests/e2e -m e2e`
+
+
+
+# Claude Code - Pull Request Review Guidelines
+
+Use this skill.md file for pull request review:
+    .claude\skills\github-pr-review\SKILL.md
+

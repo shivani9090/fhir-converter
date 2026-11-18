@@ -1,0 +1,25 @@
+{
+  "mcpServers": {
+    "neo4j-aurodb-mcp": {
+      "type": "stdio",
+      "command": "C:\\Users\\rameshnaidu.sunkari\\Documents\\projects\\claude\\fhir-converter\\venv\\Scripts\\mcp-neo4j-cypher.exe",
+      "args": [],
+      "env": {
+        "NEO4J_URI": "neo4j+s://bbd4a566.databases.neo4j.io",
+        "NEO4J_USERNAME": "bbd4a566",
+        "NEO4J_PASSWORD": "VMZUmUsI4X_t1nur3W3OkmC1DOa-VuWpH4MNiqJFNJM",
+        "NEO4J_DATABASE": "bbd4a566",
+        "NEO4J_READ_ONLY": "true",
+        "NEO4J_TRANSPORT": "stdio"
+      }
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "C:\\Program Files\\nodejs\\npx.cmd",
+      "args": ["-y", "@playwright/mcp@latest"],
+      "env": {
+        "PATH": "C:\\Program Files\\nodejs;C:\\Windows\\System32;C:\\Windows;C:\\Windows\\System32\\Wbem"
+      }
+    }
+  }
+}

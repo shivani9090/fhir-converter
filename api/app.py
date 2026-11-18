@@ -99,21 +99,6 @@ def _stu3_template_from(data: bytes, template: Optional[str]) -> str:
         )
     return resource_type
 
-
-# --------------------------------------------------------------------------- #
-# Routes
-# --------------------------------------------------------------------------- #
-@app.get("/health", tags=["meta"])
-def health() -> Dict[str, str]:
-    return {"status": "Hey, I'm from fhir-converter. I'm healthy and ready to serve you !"}
-
-
-@app.get("/templates/{source}", tags=["meta"])
-def templates(source: Literal["ccda", "stu3"]) -> Dict[str, Any]:
-    return {"source": source, "templates": list_templates(source)}
-
-
-
 _XML_BODY = {
     "requestBody": {
         "required": True,
@@ -129,13 +114,22 @@ _JSON_BODY = {
 }
 
 
+# --------------------------------------------------------------------------- #
+# Routes
+# --------------------------------------------------------------------------- #
+@app.get("/health", tags=["meta"])
+def health() -> Dict[str, str]:
+    return {"status": "Hey, I'm from fhir-converter. I'm healthy and ready to serve you !"}
+
+@app.get("/templates/{source}", tags=["meta"])
+def templates(source: Literal["ccda", "stu3"]) -> Dict[str, Any]:
+    return {"source": source, "templates": list_templates(source)}
+
 @app.post("/convert/ccda/{template}", tags=["ccda"], openapi_extra=_XML_BODY)
 async def convert_ccda(template: str, request: Request) -> JSONResponse:
     """Convert a CCDA document (raw XML body) using a template such as CCD."""
     _require_template("ccda", template)
     return await _convert(ccda_renderer(), template, await request.body())
-
-
 
 @app.post("/convert/stu3", tags=["stu3"], openapi_extra=_JSON_BODY)
 async def convert_stu3(

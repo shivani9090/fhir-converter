@@ -1,0 +1,8 @@
+[extend]
+useDefault = true
+
+[[rules]]
+id = "hardcoded-api-key-assignment"
+description = "API key assigned as a string literal"
+regex = '''(?i)\b[A-Z_]*API_KEY\s*=\s*['"][^'"]{6,}['"]'''
+keywords = ["api_key"]

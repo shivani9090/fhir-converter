@@ -12,4 +12,5 @@
 - Run application: `python convert_ccda.py`
 
 ## Development Commands
-- Run all tests: `pytest -v`
+<!-- - Run all tests: `pytest -v` -->
+- Run E2E: `pytest tests/e2e -m e2e`

@@ -49,6 +49,7 @@ def stu3_renderer() -> Stu3FhirRenderer:
 @lru_cache(maxsize=None)
 def list_templates(source: str) -> List[str]:
     """Top-level (root) templates available for a source format."""
+    print('Day9_test2')
     return sorted(p.stem for p in (TEMPLATES_DIR / source).glob("*.liquid"))
 
 

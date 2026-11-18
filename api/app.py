@@ -26,7 +26,6 @@ from fhir_converter.renderers import CcdaRenderer, Stu3FhirRenderer
 TEMPLATES_DIR = Path(fhir_converter.__file__).parent / "templates"
 FHIR_JSON = "application/fhir+json"
 
-API_KEY="lkdkfjsd93847dkkdif"
 
 app = FastAPI(
     title="FHIR Converter API",

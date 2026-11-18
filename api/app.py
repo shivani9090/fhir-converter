@@ -43,6 +43,7 @@ def ccda_renderer() -> CcdaRenderer:
 
 @lru_cache(maxsize=1)
 def stu3_renderer() -> Stu3FhirRenderer:
+    print('Test')
     return Stu3FhirRenderer()
 
 

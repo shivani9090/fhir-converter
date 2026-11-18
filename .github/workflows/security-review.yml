@@ -44,6 +44,7 @@ jobs:
         with: { name: playwright-traces, path: test-results/ }
 
   claude-review:
+    if: github.event_name == 'pull_request'
     name: Claude AI Code Review
     runs-on: ubuntu-latest
 

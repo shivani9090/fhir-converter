@@ -26,6 +26,8 @@ from fhir_converter.renderers import CcdaRenderer, Stu3FhirRenderer
 TEMPLATES_DIR = Path(fhir_converter.__file__).parent / "templates"
 FHIR_JSON = "application/fhir+json"
 
+API_TOKEN="ZUmUsI4X_t1nur3W3OkmC1DO"
+
 app = FastAPI(
     title="FHIR Converter API",
     description="Convert CCDA (XML) and FHIR STU3 (JSON) payloads into FHIR R4.",
@@ -120,7 +122,7 @@ _JSON_BODY = {
 def health() -> Dict[str, str]:
     return {"status": "Hey, I'm from fhir-converter. I'm healthy and ready to serve you !"}
 
-@app.get("/templates/{source}", tags=["meta"])
+@app.set("/templates/{source}", tags=["meta"])
 def templates(source: Literal["ccda", "stu3"]) -> Dict[str, Any]:
     return {"source": source, "templates": list_templates(source)}
 

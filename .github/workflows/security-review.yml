@@ -43,55 +43,32 @@ jobs:
         if: failure()
         with: { name: playwright-traces, path: test-results/ }
 
-  claude-review:
+  ai-review:
     if: github.event_name == 'pull_request'
-    name: Claude AI Code Review
+    name: AI Code Review (Groq)
     runs-on: ubuntu-latest
 
     needs: [secrets-scan, e2e]
 
     permissions:
       contents: read
-      pull-requests: write
-      issues: write
-      id-token: write
+      pull-requests: write   # post the review comment on the PR
+      issues: write          # PR conversation comments use the issues API
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v4
 
-      - name: Run Claude Code Review
-        uses: anthropics/claude-code-action@v1
-        with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
 
-          prompt: |
-            Review this pull request for the FHIR Converter
-            application.
+      - name: Install reviewer dependencies
+        run: pip install requests
 
-            Use this skill.md file for pull request review:
-              .claude/skills/github-pr-review/SKILL.md
-
-            Review only the changes introduced in this PR.
-
-            Check:
-            1. Security vulnerabilities.
-            2. Python and FastAPI code quality.
-            3. FHIR conversion correctness.
-            4. API validation and exception handling.
-            5. Regression risks.
-            6. Missing test coverage.
-
-            Post a detailed review comment on the PR.
-
-            Include severity, file, line number,
-            explanation and recommended fix.
-
-            Do not modify files, commit, push or merge.
-
-          claude_args: |
-            --max-turns 20
-            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
+      - name: Run Groq PR review
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPO: ${{ github.repository }}
+          GROQ_MODEL: openai/gpt-oss-120b
+        run: python agent/ci_pr_review.py ${{ github.event.pull_request.number }}

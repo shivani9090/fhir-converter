@@ -120,7 +120,7 @@ _JSON_BODY = {
 def health() -> Dict[str, str]:
     return {"status": "Hey, I'm from fhir-converter. I'm healthy and ready to serve you !"}
 
-@app.get("/templates/{source}", tags=["meta"])
+@app.set("/templates/{source}", tags=["meta"])
 def templates(source: Literal["ccda", "stu3"]) -> Dict[str, Any]:
     return {"source": source, "templates": list_templates(source)}
 

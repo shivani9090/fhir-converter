@@ -11,3 +11,4 @@ langchain-anthropic
 langchain_groq
 langchain-mcp-adapters 
 requests 
+langfuse>=3

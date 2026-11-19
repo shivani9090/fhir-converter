@@ -7,8 +7,13 @@ from langchain.agents import create_agent
 from langchain_groq import ChatGroq
 from skill_loader import load_skill
 from mcp_tools import get_graph_tools
+from langfuse import get_client
+from langfuse.langchain import CallbackHandler
 
 load_dotenv()
+
+langfuse_handler = CallbackHandler()
+
 GH = {"Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}",
       "Accept": "application/vnd.github+json"}
 
@@ -85,7 +90,16 @@ if __name__ == "__main__":
         sys.stdout.reconfigure(encoding="utf-8")
         app = await build_graph()
         print(app.get_graph().draw_mermaid())
-        out = await app.ainvoke({"pr_number": int(sys.argv[1])})
+        out = await app.ainvoke(
+            {"pr_number": int(sys.argv[1])},
+            config={
+                    "callbacks": [langfuse_handler],
+                    "run_name": "pr-review",
+                    "metadata": {"langfuse_tags": ["pr-review", "groq"],
+                    "pr_number": sys.argv[1]},
+        },
+            )
         print(out["review"])
     asyncio.run(main())
 
+get_client().flush()   # short-lived script: send traces before exit

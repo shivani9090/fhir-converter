@@ -1,0 +1,4 @@
+# Historical finding: dummy value 'testapikey' added in "Day-5 commit for review skill",
+# removed from api/app.py (now read from FHIR_API_KEY env var). Not a real credential.
+41046a4bd87821b2bf9368c7b2fed4a567e02aea:api/app.py:hardcoded-api-key-assignment:29
+82cec45b5b6d0af88b3c4ea532e5d0715fc88148:notes.md:hardcoded-api-key-assignment:137

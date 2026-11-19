@@ -26,6 +26,7 @@ from fhir_converter.renderers import CcdaRenderer, Stu3FhirRenderer
 TEMPLATES_DIR = Path(fhir_converter.__file__).parent / "templates"
 FHIR_JSON = "application/fhir+json"
 
+
 app = FastAPI(
     title="FHIR Converter API",
     description="Convert CCDA (XML) and FHIR STU3 (JSON) payloads into FHIR R4.",
@@ -49,7 +50,7 @@ def stu3_renderer() -> Stu3FhirRenderer:
 @lru_cache(maxsize=None)
 def list_templates(source: str) -> List[str]:
     """Top-level (root) templates available for a source format."""
-    print('Day9_test3')
+    print('Test review')
     return sorted(p.stem for p in (TEMPLATES_DIR / source).glob("*.liquid"))
 
 

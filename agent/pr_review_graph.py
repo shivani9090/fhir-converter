@@ -51,6 +51,12 @@ async def make_review_node():
     #     system_prompt=system,
     # )
 
+    # Models:
+    # openai/gpt-oss-120b
+    # openai/gpt-oss-safeguard-20b
+    # qwen/qwen3.8-27b
+    # gemma2-9b-it
+
     agent = create_agent(
         ChatGroq(model="openai/gpt-oss-120b", max_tokens=8000),
         tools,
